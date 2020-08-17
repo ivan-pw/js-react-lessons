@@ -1,36 +1,17 @@
 'use strict';
 
-const btn = document.querySelector('.btn');
-const elem = document.querySelector('.box');
-let pos = 0;
+// latentflip.com
 
-// function myAnimation() {
-//     let pos = 0;
-//
-//     const id = setInterval(frame, 10);
-//
-//     function frame() {
-//         if (pos == 300) {
-//             clearInterval(id);
-//         } else {
-//             pos++;
-//             elem.style.top = pos + "px";
-//             elem.style.left = pos + 'px';
-//         }
-//     }
-// }
+console.log(1);
 
-function myAnimation() {
-  pos++;
-  elem.style.top = pos + 'px';
-  elem.style.left = pos + 'px';
+setTimeout(()=> {
+  console.log('timeout');
+}, 2000);
 
-  if (pos < 300) {
-    requestAnimationFrame(myAnimation);
-  }
-}
 
-btn.addEventListener('click', ()=>requestAnimationFrame(myAnimation));
+setTimeout(()=> {
+  console.log('timeout 4000');
+}, 4000);
 
-const id = requestAnimationFrame(myAnimation);
-cancelAnimationFrame(id);
+
+console.log(2);

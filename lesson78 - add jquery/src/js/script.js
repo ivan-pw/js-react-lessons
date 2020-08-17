@@ -11,3 +11,6 @@ console.log(data.one + ' and ' + data.two);
 // data.sayHi();
 sayHi();
 
+$(document).ready(function() {
+
+});
