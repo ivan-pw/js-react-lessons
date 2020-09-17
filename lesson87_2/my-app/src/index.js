@@ -4,28 +4,22 @@ import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
-const Header = ()=>{
-//   const src = '<script>alert("1111111")</script>';
+const Header = () => {
+  //   const src = '<script>alert("1111111")</script>';
   return <h2>HW</h2>;
 };
 
-const Field = ()=>{
+const Field = () => {
   const holder = 'Enter here';
   const styleField = {
     width: '300px',
   };
-  return <input
-    type="text"
-    placeholder={holder}
-    autoComplete=""
-    className="first"
-    htmlFor=""
-    style={styleField}
-  ></input>;
+  return (
+    <input type="text" placeholder={holder} autoComplete="" className="first" htmlFor="" style={styleField}></input>
+  );
 };
 
-const Btn = ()=>{
+const Btn = () => {
   const text = `Log in`;
   const logged = false;
   //   const res = ()=>{
@@ -35,7 +29,7 @@ const Btn = ()=>{
   return <button>{logged ? null : text}</button>;
 };
 
-const App = ()=>{
+const App = () => {
   return (
     <div>
       <Header />
@@ -45,11 +39,7 @@ const App = ()=>{
   );
 };
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById('root'),
-);
-
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
