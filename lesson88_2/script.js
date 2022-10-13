@@ -33,4 +33,4 @@ const getTotalIncomeAmount = (data) => {
   }
 };
 
-console.log(getTotalIncomeAmount(funds));
+// console.log(getTotalIncomeAmount(funds));
