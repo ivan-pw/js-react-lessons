@@ -1,19 +1,22 @@
-import React from 'react';
+// import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-// import App from './App';
+import App from './App';
+// import { Header } from './App';
+
 // import reportWebVitals from './reportWebVitals';
 
-const text = 'Hello world';
+// const text = 'Hello world';
 
-const elem = (
-  <div>
-    <h2 className="text">Text: {text}</h2>
-    <label htmlFor="input_1"></label>
-    <input type="text"></input>
-    <button tabIndex="0">Click</button>
-  </div>
-);
+// const elem = (
+//   <div>
+//     <h2 className="text">Text: {text}</h2>
+//     <label htmlFor="input_1"></label>
+//     <input type="text"></input>
+//     <button tabIndex="0">Click</button>
+//   </div>
+// );
 
 // const elem = React.createElement(
 //   'h2',
@@ -22,7 +25,11 @@ const elem = (
 // );
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(elem);
+root.render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

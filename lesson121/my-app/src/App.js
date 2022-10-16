@@ -1,26 +1,60 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
+import { Component, StrictMode } from 'react';
 import './App.css';
+
+const Header = () => {
+  return <h2>Hello world</h2>;
+};
+
+// const Field = () => {
+//   const holder = 'Type here';
+//   const styledField = {
+//     width: '300px',
+//   };
+//   return
+{
+  /* <input placeholder={holder} type="text" style={styledField}></input>; */
+}
+// };
+
+// Классы как элементы всегда нужно наследовать от реакта
+class Field extends Component {
+  render() {
+    const holder = 'Type here';
+    const styledField = {
+      width: '300px',
+    };
+
+    return <input placeholder={holder} type="text" style={styledField}></input>;
+  }
+}
+
+function Btn() {
+  // const text = 'Log in';
+  // const res = () => {
+  //   return 'Log in';
+  // };
+  // const p = <p>Log in</p>;
+  // return <button>{text}</button>;
+  // return <button>{res()}</button>;
+  // return <button>{p}</button>;
+
+  const text = 'Log in';
+  const logged = true;
+  return <button>{logged ? 'Enter' : text}</button>;
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>Check!</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StrictMode>
+        <Header></Header>
+      </StrictMode>
+      <Field />
+      <Btn />
     </div>
   );
 }
 
+export { Header };
 export default App;
