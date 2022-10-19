@@ -1,14 +1,37 @@
-import React from 'react';
+import { Component } from 'react';
 import './App.css';
 
-function WhoIAm(props) {
-// function WhoIAm({name, surname, link}) {
-  return (
-    <div>
-      <h1>My name is {props.name}, surname - {props.surname}</h1>
-      <a href={props.link}>My profile</a>
-    </div>
-  );
+class WhoIAm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      years: 27,
+      text: '+++',
+    };
+  }
+  nextYear = () => {
+    console.log('+++');
+
+    // this.state.years++; - неверно
+    // передаем состояние, чтобы асинхронность не сбивала счетчик
+    // setState меняет только указанное
+    this.setState((state) => ({
+      years: state.years+1,
+    }));
+  };
+  // function WhoIAm({name, surname, link}) {
+  render() {
+    const { name, surname, link } = this.props;
+    return (
+      <div>
+        <button onClick={this.nextYear}>{this.state.text}</button>
+        <h1>My name is {name},
+        surname - {surname},
+        age - {this.state.years}</h1>
+        <a href={link}>My profile</a>
+      </div>
+    );
+  }
 }
 
 function App() {
