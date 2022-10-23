@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 import './App.css';
 
 class WhoIAm extends Component {
@@ -36,7 +36,8 @@ class WhoIAm extends Component {
 
     console.log(this);
     return (
-      <div>
+      <>
+        {/*  or use <Fragment></Fragment> */}
         <button onClick={this.nextYear}>{this.state.text}</button>
         <h1>My name is {name},
         surname - {surname},
@@ -47,10 +48,12 @@ class WhoIAm extends Component {
           <input type="text"
             onChange={(e)=>this.commitInputChanges(e, 'some color')} ></input>
         </form>
-      </div>
+      </>
     );
   }
 }
+
+// React.Fragment key="545"
 
 function App() {
   return (
