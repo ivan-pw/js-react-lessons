@@ -1,4 +1,3 @@
-
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -35,15 +34,16 @@ class App extends Component {
           increase: false,
           rise: false,
           id: uuidv4(),
-        }],
+        },
+      ],
       term: '',
       filter: 'all',
     };
   }
 
-  deleteItem = (id)=>{
+  deleteItem = (id) => {
     // console.log(id);
-    this.setState(({ data })=>{
+    this.setState(({ data }) => {
       // const index = data.findIndex((elem) => elem.id == id);
 
       // console.log(index);
@@ -52,7 +52,6 @@ class App extends Component {
       // const before = data.slice(0, index);
       // const after = data.slice(index + 1);
       // const newArr = [...before, ...after];
-
 
       return {
         data: data.filter((item) => item.id !== id),
@@ -69,7 +68,7 @@ class App extends Component {
       id: uuidv4(),
     };
 
-    this.setState(({ data })=>{
+    this.setState(({ data }) => {
       return {
         data: [...data, newItem],
       };
@@ -81,12 +80,13 @@ class App extends Component {
     // const index = data.findIndex((elem)=>elem.id === id);
     // const old = data[index];
     // const newItem = { ...old, increase: !old.increase };
-    // const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+    // const newArr =
+    // [...data.slice(0, index), newItem, ...data.slice(index + 1)];
     // return { data: newArr };
     // });
 
-    this.setState(({ data })=>({
-      data: data.map((item)=>{
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
         if (item.id === id) {
           return { ...item, [prop]: !item[prop] };
         }
@@ -110,11 +110,11 @@ class App extends Component {
     });
   };
 
-  onUpdateSearch = (term)=>{
+  onUpdateSearch = (term) => {
     this.setState({ term }); // or {term: term}
   };
 
-  filterPost = (items, filter) =>{
+  filterPost = (items, filter) => {
     switch (filter) {
       case 'rise':
         return items.filter((item) => item.rise);
@@ -129,11 +129,11 @@ class App extends Component {
     this.setState({ filter });
   };
 
-  onSalaryChange = (id, salary) =>{
+  onSalaryChange = (id, salary) => {
     // this.setState
     // console.log(salary);
-    this.setState(({ data })=>({
-      data: data.map((item)=>{
+    this.setState(({ data }) => ({
+      data: data.map((item) => {
         if (item.id == id) {
           return { ...item, salary: salary };
         }
@@ -150,9 +150,7 @@ class App extends Component {
 
     return (
       <div className="app">
-        <AppInfo
-          employees={employees}
-          increased={increased} />
+        <AppInfo employees={employees} increased={increased} />
         <div className="search-panel">
           <SearchPanel onUpdateSearch={this.onUpdateSearch} />
           <AppFilter filter={filter} onFilterSelect={this.onFilterSelect} />

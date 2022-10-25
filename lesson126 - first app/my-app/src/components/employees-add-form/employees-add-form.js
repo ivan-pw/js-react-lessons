@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import './employees-add-form.css';
+// import './employees-add-form.css';
+import './employees-add-form.scss';
 
 class EmployeesAddForm extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class EmployeesAddForm extends Component {
     };
   }
 
-  onSubmit = (e)=> {
+  onSubmit = (e) => {
     e.preventDefault();
     if (this.state.name.trim().length > 3 && this.state.salary > 0) {
       this.props.onAdd(this.state.name, this.state.salary);
@@ -55,12 +56,12 @@ class EmployeesAddForm extends Component {
           />
 
           <button type="submit" className="btn btn-outline-light">
-          Добавить
+            Добавить
           </button>
         </form>
       </div>
     );
   }
-};
+}
 
 export default EmployeesAddForm;
