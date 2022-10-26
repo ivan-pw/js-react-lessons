@@ -1,5 +1,37 @@
 import { Component, Fragment } from 'react';
+import styled from 'styled-components';
+
 import './App.css';
+
+const EmpItem = styled.div`
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  boxshadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+
+  a {
+    display: block;
+    margin: 10px, 0 10px 0;
+    color: ${(props) => (props.active ? 'orange' : 'black')};
+  }
+
+  input {
+    display: block;
+    margin-top: 10px;
+  }
+`;
+
+const Header = styled.h2`
+  font-size: 22px;
+`;
+
+export const Button = styled.button`
+  display: block;
+  padding: 5px 15px;
+  background-color: gold;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+`;
 
 class WhoIAm extends Component {
   constructor(props) {
@@ -11,14 +43,14 @@ class WhoIAm extends Component {
     };
     // this.nextYear = this.nextYear.bind(this);
   }
-  nextYear = ()=> {
+  nextYear = () => {
     console.log('+++');
 
     // this.state.years++; - неверно
     // передаем состояние, чтобы асинхронность не сбивала счетчик
     // setState меняет только указанное
     this.setState((state) => ({
-      years: state.years+1,
+      years: state.years + 1,
     }));
   };
 
@@ -36,38 +68,48 @@ class WhoIAm extends Component {
 
     console.log(this);
     return (
-      <>
+      <EmpItem active>
         {/*  or use <Fragment></Fragment> */}
-        <button onClick={this.nextYear}>{this.state.text}</button>
-        <h1>My name is {name},
-        surname - {surname},
-        age - {years}, position - {position}</h1>
+        <Button onClick={this.nextYear}>{this.state.text}</Button>
+        <Header>
+          My name is {name}, surname - {surname}, age - {years}, position -{' '}
+          {position}
+        </Header>
         <a href={link}>My profile</a>
         <form>
           <span>Введите должность: </span>
-          <input type="text"
-            onChange={(e)=>this.commitInputChanges(e, 'some color')} ></input>
+          <input
+            type="text"
+            onChange={(e) => this.commitInputChanges(e, 'some color')}
+          ></input>
         </form>
-      </>
+      </EmpItem>
     );
   }
 }
 
 // React.Fragment key="545"
 
+const Wrapper = styled.div`
+  width: 600px;
+  margin: 80px auto 0 auto;
+`;
+
 function App() {
   return (
-    <div className="App">
-      <WhoIAm name='John'
-        surname='Smith'
-        link='fb.com'
-        some={{ firstName: 'John' }} />
+    <Wrapper>
+      <WhoIAm
+        name="John"
+        surname="Smith"
+        link="fb.com"
+        some={{ firstName: 'John' }}
+      />
       {/* <WhoIAm
       name={()=>{ return 'John'}}
       surname='Bolton'
       link='tw.com' /> */}
-      <WhoIAm name='Alex' surname='Bolton' link='tw.com' />
-    </div>
+      <WhoIAm name="Alex" surname="Bolton" link="tw.com" />
+    </Wrapper>
   );
 }
 
