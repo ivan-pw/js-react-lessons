@@ -1,0 +1,28 @@
+.nav {
+  &.color-dark {
+    .nav-item {
+      a {
+        color: #000;
+
+        &:hover,
+        &:focus {
+          color: #000;
+        }
+      }
+    }
+  }
+
+  &-item {
+    a {
+      color: #fff;
+      opacity: 0.85;
+      transition: 0.5s all linear;
+
+      &:hover,
+      &:focus {
+        opacity: 1;
+        color: #fff;
+      }
+    }
+  }
+}

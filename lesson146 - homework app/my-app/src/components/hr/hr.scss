@@ -1,0 +1,29 @@
+.hr-bean {
+  display: flex;
+  position: relative;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 20px auto 25px;
+  max-width: 60%;
+
+  &.white {
+    .line {
+      background-color: #fff;
+    }
+  }
+
+  .line {
+    content: '';
+    width: calc(50% - 40px);
+    height: 2px;
+    top: 12px;
+    background-color: #000;
+  }
+
+  img {
+    margin: 0 auto;
+    display: block;
+  }
+}
