@@ -142,7 +142,7 @@ class App extends Component {
             <Col md={8}>{page}</Col>
           </Row>
         </Container>
-        <Footer page={this.state.page}></Footer>
+        <Footer page={this.state.page} changePage={this.changePage}></Footer>
       </div>
     );
   }

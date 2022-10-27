@@ -12,7 +12,11 @@ class Footer extends Component {
         <Container>
           <Row className="justify-content-center">
             <Col md="auto">
-              <Menu color="dark" className="pt-3 pb-1"></Menu>
+              <Menu
+                color="dark"
+                className="pt-3 pb-1"
+                changePage={this.props.changePage}
+              ></Menu>
               <Hr></Hr>
             </Col>
           </Row>
