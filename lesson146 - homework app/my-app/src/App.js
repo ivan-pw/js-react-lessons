@@ -11,10 +11,60 @@ import './App.scss';
 
 import ourCoffeePic from './components/images/our-coffee-pic.jpg';
 import aboutPic from './components/images/about-pic.jpg';
+import ItemList from './components/item-list/item-list';
 
 class App extends Component {
   state = {
     page: 'our-coffee',
+  };
+
+  products = [
+    {
+      id: 1,
+      name: 'AROMISTICO Coffee 1 kg',
+      price: 6.99,
+      best: false,
+      image: 1,
+    },
+    {
+      id: 2,
+      name: 'AROMISTICO Coffee 1 kg',
+      price: 6.99,
+      best: false,
+      image: 1,
+    },
+    {
+      id: 3,
+      name: 'AROMISTICO Coffee 1 kg',
+      price: 6.99,
+      best: false,
+      image: 1,
+    },
+    {
+      id: 4,
+      name: 'AROMISTICO Coffee 1 kg',
+      price: 6.99,
+      best: true,
+      image: 1,
+    },
+    {
+      id: 5,
+      name: 'AROMISTICO Coffee 1 kg',
+      price: 6.99,
+      best: true,
+      image: 2,
+    },
+    {
+      id: 6,
+      name: 'AROMISTICO Coffee 1 kg',
+      price: 6.99,
+      best: true,
+      image: 3,
+    },
+  ];
+
+  getProducts = (require) => {
+    return this.products.filter((v) => require.includes(v.id));
   };
 
   pageOurCoffee = () => {
@@ -40,6 +90,11 @@ class App extends Component {
               feel met spot shy want. Children me laughing we prospect answered
               followed. At it went is song that held help face.
             </p>
+          </Col>
+        </Row>
+        <Row className="justify-content-center text-center">
+          <Col md={8}>
+            <ItemList products={this.getProducts([1, 2, 3])}></ItemList>
           </Col>
         </Row>
       </Container>
