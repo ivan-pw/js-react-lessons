@@ -24,6 +24,7 @@ class App extends Component {
       name: 'AROMISTICO Coffee 1 kg',
       price: 6.99,
       best: false,
+      country: 'Brazil',
       image: 1,
     },
     {
@@ -31,6 +32,7 @@ class App extends Component {
       name: 'AROMISTICO Coffee 1 kg',
       price: 6.99,
       best: false,
+      country: 'Brazil',
       image: 1,
     },
     {
@@ -38,6 +40,7 @@ class App extends Component {
       name: 'AROMISTICO Coffee 1 kg',
       price: 6.99,
       best: false,
+      country: 'Brazil',
       image: 1,
     },
     {
@@ -45,6 +48,7 @@ class App extends Component {
       name: 'AROMISTICO Coffee 1 kg',
       price: 6.99,
       best: true,
+      country: 'Brazil',
       image: 1,
     },
     {
@@ -52,6 +56,7 @@ class App extends Component {
       name: 'AROMISTICO Coffee 1 kg',
       price: 6.99,
       best: true,
+      country: 'Brazil',
       image: 2,
     },
     {
@@ -59,42 +64,57 @@ class App extends Component {
       name: 'AROMISTICO Coffee 1 kg',
       price: 6.99,
       best: true,
+      country: 'Brazil',
       image: 3,
     },
   ];
 
   getProducts = (require) => {
+    if (typeof require == 'string' && require === 'all') {
+      return this.products;
+    }
     return this.products.filter((v) => require.includes(v.id));
   };
 
   pageOurCoffee = () => {
     return (
-      <Container>
-        <Row className="justify-content-center text-center">
-          <Col md={6}>
-            <img className="text-image" src={ourCoffeePic} alt="Our Coffee" />
-          </Col>
-          <Col md={6}>
-            <h2>About our beans</h2>
-            <Hr></Hr>
-            <p>
-              Extremity sweetness difficult behaviour he of. On disposal of as
-              landlord horrible.
-            </p>
-            <p>
-              Afraid at highly months do things on at. Situation recommend
-              objection do intention so questions.{' '}
-            </p>
-            <p>
-              As greatly removed calling pleased improve an. Last ask him cold
-              feel met spot shy want. Children me laughing we prospect answered
-              followed. At it went is song that held help face.
-            </p>
-          </Col>
-        </Row>
-        <Row className="justify-content-center text-center">
+      <Container className="text-content">
+        <Row className="justify-content-center">
           <Col md={8}>
-            <ItemList products={this.getProducts([1, 2, 3])}></ItemList>
+            <Container>
+              <Row className="justify-content-center text-center">
+                <Col md={6}>
+                  <img
+                    className="text-image"
+                    src={ourCoffeePic}
+                    alt="Our Coffee"
+                  />
+                </Col>
+                <Col md={6}>
+                  <h2>About our beans</h2>
+                  <Hr></Hr>
+                  <p>
+                    Extremity sweetness difficult behaviour he of. On disposal
+                    of as landlord horrible.
+                  </p>
+                  <p>
+                    Afraid at highly months do things on at. Situation recommend
+                    objection do intention so questions.{' '}
+                  </p>
+                  <p>
+                    As greatly removed calling pleased improve an. Last ask him
+                    cold feel met spot shy want. Children me laughing we
+                    prospect answered followed. At it went is song that held
+                    help face.
+                  </p>
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col md={12}>
+                  <ItemList products={this.getProducts('all')}></ItemList>
+                </Col>
+              </Row>
+            </Container>
           </Col>
         </Row>
       </Container>
@@ -103,27 +123,39 @@ class App extends Component {
 
   pageAbout = () => {
     return (
-      <Container>
-        <Row className="justify-content-center text-center">
-          <Col md={6}>
-            <img className="text-image" src={aboutPic} alt="About" />
-          </Col>
-          <Col md={6}>
-            <h2>About our goods</h2>
-            <Hr></Hr>
-            <p>
-              Extremity sweetness difficult behaviour he of. On disposal of as
-              landlord horrible.
-            </p>
-            <p>
-              Afraid at highly months do things on at. Situation recommend
-              objection do intention so questions.{' '}
-            </p>
-            <p>
-              As greatly removed calling pleased improve an. Last ask him cold
-              feel met spot shy want. Children me laughing we prospect answered
-              followed. At it went is song that held help face.
-            </p>
+      <Container className="text-content">
+        <Row className="justify-content-center">
+          <Col md={8}>
+            <Container>
+              <Row className="justify-content-center text-center">
+                <Col md={6}>
+                  <img className="text-image" src={aboutPic} alt="About" />
+                </Col>
+                <Col md={6}>
+                  <h2>About our goods</h2>
+                  <Hr></Hr>
+                  <p>
+                    Extremity sweetness difficult behaviour he of. On disposal
+                    of as landlord horrible.
+                  </p>
+                  <p>
+                    Afraid at highly months do things on at. Situation recommend
+                    objection do intention so questions.{' '}
+                  </p>
+                  <p>
+                    As greatly removed calling pleased improve an. Last ask him
+                    cold feel met spot shy want. Children me laughing we
+                    prospect answered followed. At it went is song that held
+                    help face.
+                  </p>
+                </Col>
+              </Row>
+              <Row className="justify-content-center">
+                <Col md={12}>
+                  <ItemList products={this.getProducts('all')}></ItemList>
+                </Col>
+              </Row>
+            </Container>
           </Col>
         </Row>
       </Container>
@@ -132,33 +164,52 @@ class App extends Component {
 
   pageMain = () => {
     return (
-      <Container>
-        <Row className="justify-content-center text-center">
-          <Col md={12}>
-            <h2>About Us</h2>
-            <Hr></Hr>
-            <p>
-              Extremity sweetness difficult behaviour he of. On disposal of as
-              landlord horrible.
-            </p>
-            <p>
-              Afraid at highly months do things on at. Situation recommend
-              objection do intention so questions. As greatly removed calling
-              pleased improve an. Last ask him cold feel met spot shy want.
-              Children me laughing we prospect answered followed. At it went is
-              song that held help face.
-            </p>
-            <p>
-              Now residence dashwoods she excellent you. Shade being under his
-              bed her, Much read on as draw. Blessing for ignorant exercise any
-              yourself unpacked. Pleasant horrible but confined day end
-              marriage. Eagerness furniture set preserved far recommend. Did
-              even but nor are most gave hope. Secure active living depend son
-              repair day ladies now.
-            </p>
-          </Col>
-        </Row>
-      </Container>
+      <>
+        <Container className="text-content">
+          <Row className="justify-content-center">
+            <Col md={8}>
+              <Container>
+                <Row className="justify-content-center text-center">
+                  <Col md={12}>
+                    <h2>About Us</h2>
+                    <Hr></Hr>
+                    <p>
+                      Extremity sweetness difficult behaviour he of. On disposal
+                      of as landlord horrible.
+                    </p>
+                    <p>
+                      Afraid at highly months do things on at. Situation
+                      recommend objection do intention so questions. As greatly
+                      removed calling pleased improve an. Last ask him cold feel
+                      met spot shy want. Children me laughing we prospect
+                      answered followed. At it went is song that held help face.
+                    </p>
+                    <p>
+                      Now residence dashwoods she excellent you. Shade being
+                      under his bed her, Much read on as draw. Blessing for
+                      ignorant exercise any yourself unpacked. Pleasant horrible
+                      but confined day end marriage. Eagerness furniture set
+                      preserved far recommend. Did even but nor are most gave
+                      hope. Secure active living depend son repair day ladies
+                      now.
+                    </p>
+                  </Col>
+                </Row>
+              </Container>
+            </Col>
+          </Row>
+        </Container>
+        <Container fluid className="our-best py-5">
+          <Container>
+            <Row className="justify-content-center">
+              <Col md={8}>
+                <h2 className="text-center">Our best</h2>
+                <ItemList products={this.getProducts([1, 2, 3])}></ItemList>
+              </Col>
+            </Row>
+          </Container>
+        </Container>
+      </>
     );
   };
 
@@ -192,11 +243,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header page={this.state.page} changePage={this.changePage}></Header>
-        <Container className="text-content">
-          <Row className="justify-content-center">
-            <Col md={8}>{page}</Col>
-          </Row>
-        </Container>
+        {page}
         <Footer page={this.state.page} changePage={this.changePage}></Footer>
       </div>
     );

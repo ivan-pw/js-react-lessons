@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Item from './../item/item';
+import { Row } from 'react-bootstrap';
 
 class ItemList extends Component {
   render() {
@@ -8,7 +9,7 @@ class ItemList extends Component {
       // console.log(v);
     });
 
-    return <div className="item-list">{selectedProducts}</div>;
+    return <Row className="item-list">{selectedProducts}</Row>;
   }
 }
 
