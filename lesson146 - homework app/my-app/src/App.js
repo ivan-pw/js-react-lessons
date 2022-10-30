@@ -26,6 +26,7 @@ class App extends Component {
       best: false,
       country: 'Brazil',
       image: 1,
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     {
       id: 2,
@@ -34,6 +35,7 @@ class App extends Component {
       best: false,
       country: 'Brazil',
       image: 1,
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     {
       id: 3,
@@ -42,6 +44,7 @@ class App extends Component {
       best: false,
       country: 'Brazil',
       image: 1,
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     {
       id: 4,
@@ -50,6 +53,7 @@ class App extends Component {
       best: true,
       country: 'Brazil',
       image: 1,
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     {
       id: 5,
@@ -58,6 +62,7 @@ class App extends Component {
       best: true,
       country: 'Brazil',
       image: 2,
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     {
       id: 6,
@@ -66,6 +71,7 @@ class App extends Component {
       best: true,
       country: 'Brazil',
       image: 3,
+      desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
   ];
 
@@ -76,13 +82,67 @@ class App extends Component {
     return this.products.filter((v) => require.includes(v.id));
   };
 
+  changePage = (e) => {
+    // console.log(e.target.getAttribute('data-link'));
+    console.log(e.currentTarget.getAttribute('data-link'));
+    this.setState({
+      page: e.currentTarget.getAttribute('data-link'),
+    });
+    if (+e.currentTarget.getAttribute('data-item') > 0) {
+      this.setState({
+        item: +e.currentTarget.getAttribute('data-item'),
+      });
+    } else {
+      this.setState({
+        item: false,
+      });
+    }
+  };
+
+  pageItem = () => {
+    const image = require('./components/item/images/' +
+      this.state.item +
+      '_big.jpg');
+    const product = this.products.filter((v) => v.id == this.state.item)[0];
+    // const productDesc = this.products.filter((v) => v.id == this.state.item);
+
+    return (
+      <Container className="text-content">
+        <Row className="justify-content-center">
+          <Col md={8}>
+            <Container>
+              <Row className="justify-content-center mb-5">
+                <Col md={6}>
+                  <img className="text-image" src={image} alt="Our Coffee" />
+                </Col>
+                <Col md={6}>
+                  <h2 className="text-center">{product.name}</h2>
+                  <Hr></Hr>
+                  <p>
+                    <strong>Country</strong>: {product.country}
+                  </p>
+                  <p>
+                    <strong>Description</strong>: {product.desc}
+                  </p>
+                  <p>
+                    <strong>Price</strong>: <span>${product.price}</span>
+                  </p>
+                </Col>
+              </Row>
+            </Container>
+          </Col>
+        </Row>
+      </Container>
+    );
+  };
+
   pageOurCoffee = () => {
     return (
       <Container className="text-content">
         <Row className="justify-content-center">
           <Col md={8}>
             <Container>
-              <Row className="justify-content-center text-center">
+              <Row className="justify-content-center text-center mb-5">
                 <Col md={6}>
                   <img
                     className="text-image"
@@ -111,7 +171,10 @@ class App extends Component {
               </Row>
               <Row className="justify-content-center">
                 <Col md={12}>
-                  <ItemList products={this.getProducts('all')}></ItemList>
+                  <ItemList
+                    products={this.getProducts('all')}
+                    changePage={this.changePage}
+                  ></ItemList>
                 </Col>
               </Row>
             </Container>
@@ -152,7 +215,10 @@ class App extends Component {
               </Row>
               <Row className="justify-content-center">
                 <Col md={12}>
-                  <ItemList products={this.getProducts('all')}></ItemList>
+                  <ItemList
+                    products={this.getProducts('all')}
+                    changePage={this.changePage}
+                  ></ItemList>
                 </Col>
               </Row>
             </Container>
@@ -204,20 +270,16 @@ class App extends Component {
             <Row className="justify-content-center">
               <Col md={8}>
                 <h2 className="text-center">Our best</h2>
-                <ItemList products={this.getProducts([1, 2, 3])}></ItemList>
+                <ItemList
+                  products={this.getProducts([1, 2, 3])}
+                  changePage={this.changePage}
+                ></ItemList>
               </Col>
             </Row>
           </Container>
         </Container>
       </>
     );
-  };
-
-  changePage = (e) => {
-    console.log(e.target.getAttribute('data-link'));
-    this.setState({
-      page: e.target.getAttribute('data-link'),
-    });
   };
 
   render() {
@@ -230,7 +292,7 @@ class App extends Component {
         page = this.pageMain();
         break;
       case 'one-item':
-        // page = this.pageOurCoffee();
+        page = this.pageItem();
         break;
       case 'about':
         page = this.pageAbout();

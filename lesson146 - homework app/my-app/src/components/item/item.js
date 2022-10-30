@@ -5,13 +5,18 @@ import './item.scss';
 
 class ItemCoffee extends Component {
   render() {
-    const product = this.props.product;
+    const { product, changePage } = this.props;
 
     const image = require('./images/' + product.image + '.jpg');
 
     return (
       <Col md={4}>
-        <div className="item text-right">
+        <div
+          className="item text-right"
+          onClick={changePage}
+          data-link="one-item"
+          data-item={product.id}
+        >
           <div
             className="product__image mb-3"
             style={{
