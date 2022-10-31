@@ -18,7 +18,7 @@ class App extends Component {
   state = {
     page: 'our-coffee',
     text_filter: '',
-    country_filter: '',
+    country_filter: [],
     shownProducts: [],
   };
 
@@ -79,26 +79,76 @@ class App extends Component {
     },
   ];
 
+  onFilterStateChange = (shownProducts) => {
+    shownProducts = this.products.filter((v) => {
+      // console.log(v.name.toLowerCase());
+      // console.log(this.state.text_filter);
+      // console.log(
+      //   v.name.toLowerCase().indexOf(this.state.text_filter.toLowerCase()) > -1
+      // );
+      return (
+        v.name.toLowerCase().indexOf(this.state.text_filter.toLowerCase()) > -1
+      );
+    });
+
+    if (this.state.country_filter.length > 0) {
+      shownProducts = shownProducts.filter((v) => {
+        return this.state.country_filter.includes(v.country);
+      });
+    }
+
+    this.setState({
+      shownProducts: shownProducts,
+    });
+  };
+
   filterItems = (e) => {
     // console.log(e.currentTarget);
     // console.log(e.currentTarget.classList);
     this.setState({
       shownProducts: [],
-      text_filter: '',
     });
-    let shownProducts;
+
+    let shownProducts = this.products;
     if (e.currentTarget.classList.contains('text_filter')) {
-      shownProducts = this.products.filter((v) => {
-        return (
-          v.name.toLowerCase().indexOf(e.currentTarget.value.toLowerCase()) > -1
-        );
-      });
+      this.setState(
+        {
+          text_filter: e.currentTarget.value,
+        },
+        () => {
+          this.onFilterStateChange(shownProducts);
+        }
+      );
     }
-    this.setState({
-      shownProducts: shownProducts,
-      text_filter: e.currentTarget.value,
-    });
-    console.log(shownProducts);
+
+    if (e.currentTarget.classList.contains('country_filter')) {
+      const button = e.currentTarget;
+      const countryFilterArr = this.state.country_filter;
+
+      button.classList.toggle('active');
+
+      if (button.classList.contains('active')) {
+        countryFilterArr.push(button.getAttribute('data-country'));
+      } else {
+        countryFilterArr.splice(
+          countryFilterArr.indexOf(button.getAttribute('data-country')),
+          1
+        );
+      }
+
+      this.setState(
+        {
+          country_filter: countryFilterArr,
+        },
+        () => {
+          this.onFilterStateChange(shownProducts);
+        }
+      );
+    }
+
+    // console.log(this.state.country_filter);
+
+    // console.log('shownProducts 2: ', shownProducts);
   };
 
   getProducts = (require) => {
@@ -106,13 +156,23 @@ class App extends Component {
       // console.log(1);
       // console.log('shownProducts: ', this.state.shownProducts);
       // console.log(this.state.shownProducts.length > 0);
+      let filteredProducts = [];
+
+      // filter by name
       if (this.state.shownProducts.length > 0) {
-        return this.state.shownProducts;
-      } else if (this.state.text_filter.length > 0) {
-        return [];
+        filteredProducts = this.state.shownProducts;
+      } else if (
+        this.state.text_filter.length > 0 ||
+        this.state.country_filter.length > 0
+      ) {
+        filteredProducts = [];
       } else {
-        return this.products;
+        filteredProducts = this.products;
       }
+
+      // filter by country
+
+      return filteredProducts;
     }
     return this.products.filter((v) => require.includes(v.id));
   };

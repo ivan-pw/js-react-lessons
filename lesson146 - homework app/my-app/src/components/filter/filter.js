@@ -21,7 +21,7 @@ class Filter extends Component {
           className="country_filter"
           data-country={v}
           key={i}
-          onChange={() => this.props.filterItems()}
+          onClick={this.props.filterItems}
         >
           {v}
         </button>
