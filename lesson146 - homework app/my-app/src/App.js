@@ -208,7 +208,11 @@ class App extends Component {
             <Container>
               <Row className="justify-content-center mb-5">
                 <Col md={6}>
-                  <img className="text-image" src={image} alt="Our Coffee" />
+                  <img
+                    className="text-image mb-5 w-100"
+                    src={image}
+                    alt="Our Coffee"
+                  />
                 </Col>
                 <Col md={6}>
                   <h2 className="text-center">{product.name}</h2>
@@ -240,7 +244,7 @@ class App extends Component {
               <Row className="justify-content-center text-center mb-5">
                 <Col md={6}>
                   <img
-                    className="text-image"
+                    className="text-image mb-5"
                     src={ourCoffeePic}
                     alt="Our Coffee"
                   />
@@ -291,7 +295,7 @@ class App extends Component {
             <Container>
               <Row className="justify-content-center text-center">
                 <Col md={6}>
-                  <img className="text-image" src={aboutPic} alt="About" />
+                  <img className="text-image mb-5" src={aboutPic} alt="About" />
                 </Col>
                 <Col md={6}>
                   <h2>About our goods</h2>
