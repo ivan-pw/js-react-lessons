@@ -6,16 +6,20 @@ import { Container, Col, Row } from 'react-bootstrap';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Hr from './components/hr/hr';
+import ItemList from './components/item-list/item-list';
+import Filter from './components/filter/filter';
 
 import './App.scss';
 
 import ourCoffeePic from './components/images/our-coffee-pic.jpg';
 import aboutPic from './components/images/about-pic.jpg';
-import ItemList from './components/item-list/item-list';
 
 class App extends Component {
   state = {
     page: 'our-coffee',
+    text_filter: '',
+    country_filter: '',
+    shownProducts: [],
   };
 
   products = [
@@ -33,16 +37,16 @@ class App extends Component {
       name: 'AROMISTICO Coffee 1 kg',
       price: 6.99,
       best: false,
-      country: 'Brazil',
+      country: 'Kenya',
       image: 1,
       desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
     {
       id: 3,
-      name: 'AROMISTICO Coffee 1 kg',
+      name: 'Bungalo Coffee 1 kg',
       price: 6.99,
       best: false,
-      country: 'Brazil',
+      country: 'Colombia',
       image: 1,
       desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     },
@@ -75,9 +79,40 @@ class App extends Component {
     },
   ];
 
+  filterItems = (e) => {
+    // console.log(e.currentTarget);
+    // console.log(e.currentTarget.classList);
+    this.setState({
+      shownProducts: [],
+      text_filter: '',
+    });
+    let shownProducts;
+    if (e.currentTarget.classList.contains('text_filter')) {
+      shownProducts = this.products.filter((v) => {
+        return (
+          v.name.toLowerCase().indexOf(e.currentTarget.value.toLowerCase()) > -1
+        );
+      });
+    }
+    this.setState({
+      shownProducts: shownProducts,
+      text_filter: e.currentTarget.value,
+    });
+    console.log(shownProducts);
+  };
+
   getProducts = (require) => {
     if (typeof require == 'string' && require === 'all') {
-      return this.products;
+      // console.log(1);
+      // console.log('shownProducts: ', this.state.shownProducts);
+      // console.log(this.state.shownProducts.length > 0);
+      if (this.state.shownProducts.length > 0) {
+        return this.state.shownProducts;
+      } else if (this.state.text_filter.length > 0) {
+        return [];
+      } else {
+        return this.products;
+      }
     }
     return this.products.filter((v) => require.includes(v.id));
   };
@@ -171,6 +206,10 @@ class App extends Component {
               </Row>
               <Row className="justify-content-center">
                 <Col md={12}>
+                  <Filter
+                    filterItems={this.filterItems}
+                    products={this.products}
+                  ></Filter>
                   <ItemList
                     products={this.getProducts('all')}
                     changePage={this.changePage}
