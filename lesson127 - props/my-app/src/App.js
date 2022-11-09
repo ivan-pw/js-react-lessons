@@ -110,9 +110,20 @@ const Wrapper = styled.div`
   margin: 80px auto 0 auto;
 `;
 
+const HelloGreating = () => {
+  return (
+    <div style={{ width: '600px', margin: '0 autp' }}>
+      <DynamicGreating color={'primary'}>
+        <h2>This wasn't too hard</h2>
+      </DynamicGreating>
+    </div>
+  );
+};
+
 function App() {
   return (
     <Wrapper>
+      <HelloGreating></HelloGreating>
       <BootstrapTest
         left={
           <DynamicGreating color={'primary'}>
