@@ -1,5 +1,7 @@
-import { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
+
+import BootstrapTest from './BootstrapTest';
 
 import './App.css';
 
@@ -32,6 +34,19 @@ export const Button = styled.button`
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 `;
+
+const DynamicGreating = (props) => {
+  return (
+    <div className={'mb-3 p-3 border border-' + props.color}>
+      {/* {props.children} */}
+      {React.Children.map(props.children, (child) => {
+        return React.cloneElement(child, {
+          className: 'shadow p-3 m-3 border rounded',
+        });
+      })}
+    </div>
+  );
+};
 
 class WhoIAm extends Component {
   constructor(props) {
@@ -98,6 +113,19 @@ const Wrapper = styled.div`
 function App() {
   return (
     <Wrapper>
+      <BootstrapTest
+        left={
+          <DynamicGreating color={'primary'}>
+            <h2>This wasn't too hard</h2>
+          </DynamicGreating>
+        }
+        right={
+          <DynamicGreating color={'primary'}>
+            <h2>I see...</h2>
+          </DynamicGreating>
+        }
+      ></BootstrapTest>
+
       <WhoIAm
         name="John"
         surname="Smith"
