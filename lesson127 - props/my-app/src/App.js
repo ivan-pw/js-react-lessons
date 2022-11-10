@@ -120,9 +120,39 @@ const HelloGreating = () => {
   );
 };
 
+const Message = (props) => {
+  return <h2>The counter is {props.counter}</h2>;
+};
+
+class Counter extends Component {
+  state = {
+    counter: 0,
+  };
+
+  changeCounter = () => {
+    this.setState(({ counter }) => ({
+      counter: counter + 1,
+    }));
+  };
+
+  render() {
+    return (
+      <>
+        <button className={'btn btn-primary'} onClick={this.changeCounter}>
+          Click me!
+        </button>
+        {this.props.renderCom(this.state.counter)}
+      </>
+    );
+  }
+}
+
 function App() {
   return (
     <Wrapper>
+      <Counter
+        renderCom={(counter) => <Message counter={counter}></Message>}
+      ></Counter>
       <HelloGreating></HelloGreating>
       <BootstrapTest
         left={
