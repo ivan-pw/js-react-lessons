@@ -6,13 +6,13 @@ import App from './App';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
-import { Button } from './App';
+// import { Button } from './App';
 
-const BigButton = styled(Button)`
-  margin: 0 auto;
-  width: 245px;
-  text-align: center;
-`;
+// const BigButton = styled(Button)`
+//   margin: 0 auto;
+//   width: 245px;
+//   text-align: center;
+// `;
 
 // import reportWebVitals from './reportWebVitals';
 
@@ -20,7 +20,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-    <BigButton as="a">Отправить отчет</BigButton>
+    {/* <BigButton as="a">Отправить отчет</BigButton> */}
     {/* <BootstrapTest /> */}
   </React.StrictMode>
 );

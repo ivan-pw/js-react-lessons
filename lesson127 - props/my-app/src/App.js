@@ -1,185 +1,84 @@
-import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
-
-import BootstrapTest from './BootstrapTest';
-
+import React, { Component } from 'react';
+import { Container } from 'react-bootstrap';
 import './App.css';
 
-const EmpItem = styled.div`
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  boxshadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+class Form extends Component {
+  //   myRef = React.createRef();
 
-  a {
-    display: block;
-    margin: 10px, 0 10px 0;
-    color: ${(props) => (props.active ? 'orange' : 'black')};
-  }
+  //   mySecondRef = React.createRef();
 
-  input {
-    display: block;
-    margin-top: 10px;
-  }
-`;
+  //   componentDidMount() {
+  //     this.myRef.current.focus();
+  //     // this.myRef.current.doSmth(); // вызов метода компонентов
+  //   }
 
-const Header = styled.h2`
-  font-size: 22px;
-`;
-
-export const Button = styled.button`
-  display: block;
-  padding: 5px 15px;
-  background-color: gold;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-`;
-
-const DynamicGreating = (props) => {
-  return (
-    <div className={'mb-3 p-3 border border-' + props.color}>
-      {/* {props.children} */}
-      {React.Children.map(props.children, (child) => {
-        return React.cloneElement(child, {
-          className: 'shadow p-3 m-3 border rounded',
-        });
-      })}
-    </div>
-  );
-};
-
-class WhoIAm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      years: 27,
-      text: '+++',
-      position: '',
-    };
-    // this.nextYear = this.nextYear.bind(this);
-  }
-  nextYear = () => {
-    console.log('+++');
-
-    // this.state.years++; - неверно
-    // передаем состояние, чтобы асинхронность не сбивала счетчик
-    // setState меняет только указанное
-    this.setState((state) => ({
-      years: state.years + 1,
-    }));
+  setInputRef = (el) => {
+    this.myRef = el;
   };
 
-  commitInputChanges = (e, color) => {
-    // console.log(e.target.value);
-    console.log(color);
-    this.setState({
-      position: e.target.value,
-    });
+  focusFirstTI = () => {
+    if (this.myRef) {
+      this.myRef.focus(); // в колбеке ref не будет current
+    }
   };
-  // function WhoIAm({name, surname, link}) {
+
   render() {
-    const { name, surname, link } = this.props;
-    const { position, years } = this.state;
-
-    console.log(this);
     return (
-      <EmpItem active>
-        {/*  or use <Fragment></Fragment> */}
-        <Button onClick={this.nextYear}>{this.state.text}</Button>
-        <Header>
-          My name is {name}, surname - {surname}, age - {years}, position -{' '}
-          {position}
-        </Header>
-        <a href={link}>My profile</a>
-        <form>
-          <span>Введите должность: </span>
-          <input
-            type="text"
-            onChange={(e) => this.commitInputChanges(e, 'some color')}
-          ></input>
+      <Container>
+        <form className="w-50 border mt-5 p-3 m-auto">
+          <div className="mb-3">
+            <label htmlFor="exampleFormControlInput1" className="form-label">
+              Email address
+            </label>
+
+            <input
+              //   ref={this.myRef}
+              ref={this.setInputRef}
+              type="email"
+              className="form-control"
+              id="exampleFormControlInput1"
+              placeholder="name@example.com"
+            />
+            {/* <TextInput ref={this.myRef}></TextInput> */}
+          </div>
+          <div className="mb-3">
+            <label htmlFor="exampleFormControlTextarea1" className="form-label">
+              Example textarea
+            </label>
+            <textarea
+              onClick={this.focusFirstTI}
+              className="form-control"
+              id="exampleFormControlTextarea1"
+              rows="3"
+            ></textarea>
+          </div>
         </form>
-      </EmpItem>
+      </Container>
     );
   }
 }
 
-// React.Fragment key="545"
-
-const Wrapper = styled.div`
-  width: 600px;
-  margin: 80px auto 0 auto;
-`;
-
-const HelloGreating = () => {
-  return (
-    <div style={{ width: '600px', margin: '0 autp' }}>
-      <DynamicGreating color={'primary'}>
-        <h2>This wasn't too hard</h2>
-      </DynamicGreating>
-    </div>
-  );
-};
-
-const Message = (props) => {
-  return <h2>The counter is {props.counter}</h2>;
-};
-
-class Counter extends Component {
-  state = {
-    counter: 0,
-  };
-
-  changeCounter = () => {
-    this.setState(({ counter }) => ({
-      counter: counter + 1,
-    }));
+// ref не работает на функциональных компонентах,
+// только на классовых, тк классовые создают экземпляр класса
+class TextInput extends Component {
+  doSmth = () => {
+    console.log('Up!');
   };
 
   render() {
     return (
-      <>
-        <button className={'btn btn-primary'} onClick={this.changeCounter}>
-          Click me!
-        </button>
-        {this.props.renderCom(this.state.counter)}
-      </>
+      <input
+        type="email"
+        className="form-control"
+        id="exampleFormControlInput1"
+        placeholder="name@example.com"
+      />
     );
   }
 }
 
 function App() {
-  return (
-    <Wrapper>
-      <Counter
-        renderCom={(counter) => <Message counter={counter}></Message>}
-      ></Counter>
-      <HelloGreating></HelloGreating>
-      <BootstrapTest
-        left={
-          <DynamicGreating color={'primary'}>
-            <h2>This wasn't too hard</h2>
-          </DynamicGreating>
-        }
-        right={
-          <DynamicGreating color={'primary'}>
-            <h2>I see...</h2>
-          </DynamicGreating>
-        }
-      ></BootstrapTest>
-
-      <WhoIAm
-        name="John"
-        surname="Smith"
-        link="fb.com"
-        some={{ firstName: 'John' }}
-      />
-      {/* <WhoIAm
-      name={()=>{ return 'John'}}
-      surname='Bolton'
-      link='tw.com' /> */}
-      <WhoIAm name="Alex" surname="Bolton" link="tw.com" />
-    </Wrapper>
-  );
+  return <Form />;
 }
 
 export default App;
