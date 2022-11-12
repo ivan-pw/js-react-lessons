@@ -18,11 +18,11 @@ import styled from 'styled-components';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-    {/* <BigButton as="a">Отправить отчет</BigButton> */}
-    {/* <BootstrapTest /> */}
-  </React.StrictMode>
+  // <React.StrictMode>
+  <App />
+  // {/* <BigButton as="a">Отправить отчет</BigButton> */}
+  // {/* <BootstrapTest /> */}
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

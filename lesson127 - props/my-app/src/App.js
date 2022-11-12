@@ -1,81 +1,91 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Container } from 'react-bootstrap';
 import './App.css';
 
 class Form extends Component {
-  //   myRef = React.createRef();
-
-  //   mySecondRef = React.createRef();
-
-  //   componentDidMount() {
-  //     this.myRef.current.focus();
-  //     // this.myRef.current.doSmth(); // вызов метода компонентов
-  //   }
-
-  setInputRef = (el) => {
-    this.myRef = el;
+  state = {
+    advOpen: false,
   };
 
-  focusFirstTI = () => {
-    if (this.myRef) {
-      this.myRef.focus(); // в колбеке ref не будет current
-    }
+  componentDidMount() {
+    setTimeout(this.handleClick, 3000);
+  }
+
+  handleClick = () => {
+    console.log('click');
+    this.setState(({ advOpen }) => {
+      return {
+        advOpen: !advOpen,
+      };
+    });
   };
 
   render() {
     return (
       <Container>
-        <form className="w-50 border mt-5 p-3 m-auto">
+        <form
+          onClick={this.handleClick}
+          className="w-50 border mt-5 p-3 m-auto"
+          style={{ overflow: 'hidden', position: 'relative' }}
+        >
           <div className="mb-3">
             <label htmlFor="exampleFormControlInput1" className="form-label">
               Email address
             </label>
-
             <input
-              //   ref={this.myRef}
-              ref={this.setInputRef}
               type="email"
               className="form-control"
               id="exampleFormControlInput1"
               placeholder="name@example.com"
             />
-            {/* <TextInput ref={this.myRef}></TextInput> */}
           </div>
           <div className="mb-3">
             <label htmlFor="exampleFormControlTextarea1" className="form-label">
               Example textarea
             </label>
             <textarea
-              onClick={this.focusFirstTI}
               className="form-control"
               id="exampleFormControlTextarea1"
               rows="3"
             ></textarea>
           </div>
+          {this.state.advOpen ? (
+            <Portal>
+              <Msg />
+            </Portal>
+          ) : null}
         </form>
       </Container>
     );
   }
 }
 
-// ref не работает на функциональных компонентах,
-// только на классовых, тк классовые создают экземпляр класса
-class TextInput extends Component {
-  doSmth = () => {
-    console.log('Up!');
-  };
+const Portal = (props) => {
+  const node = document.createElement('div');
+  document.body.appendChild(node);
 
-  render() {
-    return (
-      <input
-        type="email"
-        className="form-control"
-        id="exampleFormControlInput1"
-        placeholder="name@example.com"
-      />
-    );
-  }
-}
+  return ReactDOM.createPortal(props.children, node);
+};
+
+const Msg = () => {
+  return (
+    <div
+      style={{
+        width: '500px',
+        height: '150px',
+        backgroundColor: 'red',
+        position: 'absolute',
+        right: '0',
+        bottom: '0',
+        // right: '-50%',
+        // bottom: '-50%',
+      }}
+    >
+      Hello
+    </div>
+  );
+};
 
 function App() {
   return <Form />;
