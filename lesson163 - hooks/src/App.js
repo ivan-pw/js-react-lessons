@@ -1,4 +1,4 @@
-import { Component, useState } from 'react';
+import { Component, useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 
 import './App.css';
@@ -10,6 +10,14 @@ import './App.css';
 //       autoplay: false,
 //       slide: 0,
 //     };
+//   }
+
+//   componentDidMount() {
+//     document.title = `Slide ${this.state.slide}`;
+//   }
+
+//   componentDidUpdate() {
+//     document.title = `Slide ${this.state.slide}`;
 //   }
 
 //   changeSlide = (i) => {
@@ -63,16 +71,43 @@ import './App.css';
 //   }
 // }
 
-const calcValue = () => {
-  console.log('random');
-  return Math.random() * (50 - 1) + 1;
-};
+// const calcValue = () => {
+//   console.log('random');
+//   return Math.random() * (50 - 1) + 1;
+// };
 
 const Slider = (props) => {
-  //   const [slide, setSlide] = useState(calcValue); // можно передать функцию, но без вызова!
-  const [slide, setSlide] = useState(() => calcValue()); // можно передать функцию, но без вызова!
+  const [slide, setSlide] = useState(0); // можно передать функцию, но без вызова!
+  //   const [slide, setSlide] = useState(() => calcValue()); // можно передать функцию, но без вызова!
   const [autoplay, setAutoplay] = useState(false);
   //   const [state, setState] = useState({ slide: 0, autoplay: false });
+
+  function logging() {
+    console.log('log');
+  }
+
+  useEffect(() => {
+    // выполняется при рендере и обновлении компонента
+    console.log('eff upd');
+    document.title = `Slide ${slide}`;
+
+    window.addEventListener('click', logging); // обработчики надо убирать
+
+    return () => {
+      window.removeEventListener('click', logging);
+    };
+  }, [slide]); // массив с зависимостями, если не менялись - не выполняется
+
+  useEffect(() => {
+    // выполняется при рендере и обновлении компонента
+    console.log('eff mount');
+    document.title = `Slide ${slide}`;
+  }, []); // массив с зависимостями, если не менялись - не выполняется,
+  // либо пустой массив - выполняться будет как componentsDidMount
+
+  useEffect(() => {
+    console.log('autoplay');
+  }, [autoplay]);
 
   //   console.log(slide);
 
@@ -129,7 +164,14 @@ const Slider = (props) => {
 };
 
 function App() {
-  return <Slider />;
+  const [slider, setSlider] = useState(true);
+
+  return (
+    <>
+      <button onClick={() => setSlider(false)}>Remove slider</button>
+      {slider ? <Slider /> : null}
+    </>
+  );
 }
 
 export default App;
