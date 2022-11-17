@@ -1,89 +1,50 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { useRef, useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import './App.css';
 
-class Form extends Component {
-  state = {
-    advOpen: false,
-  };
+const Form = () => {
+  const [text, setText] = useState('');
 
-  componentDidMount() {
-    setTimeout(this.handleClick, 3000);
-  }
+  const myRef = useRef(1);
 
-  handleClick = () => {
-    console.log('click');
-    this.setState(({ advOpen }) => {
-      return {
-        advOpen: !advOpen,
-      };
-    });
-  };
+  useEffect(() => {
+    // myRef.current++;
+    // console.log(myRef.current);
 
-  render() {
-    return (
-      <Container>
-        <form
-          onClick={this.handleClick}
-          className="w-50 border mt-5 p-3 m-auto"
-          style={{ overflow: 'hidden', position: 'relative' }}
-        >
-          <div className="mb-3">
-            <label htmlFor="exampleFormControlInput1" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              id="exampleFormControlInput1"
-              placeholder="name@example.com"
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="exampleFormControlTextarea1" className="form-label">
-              Example textarea
-            </label>
-            <textarea
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              rows="3"
-            ></textarea>
-          </div>
-          {this.state.advOpen ? (
-            <Portal>
-              <Msg />
-            </Portal>
-          ) : null}
-        </form>
-      </Container>
-    );
-  }
-}
+    myRef.current = text;
+  });
 
-const Portal = (props) => {
-  const node = document.createElement('div');
-  document.body.appendChild(node);
-
-  return ReactDOM.createPortal(props.children, node);
-};
-
-const Msg = () => {
   return (
-    <div
-      style={{
-        width: '500px',
-        height: '150px',
-        backgroundColor: 'red',
-        position: 'absolute',
-        right: '0',
-        bottom: '0',
-        // right: '-50%',
-        // bottom: '-50%',
-      }}
-    >
-      Hello
-    </div>
+    <Container>
+      <form className="w-50 border mt-5 p-3 m-auto">
+        <div className="mb-3">
+          <label htmlFor="exampleFormControlInput1" className="form-label">
+            Email address
+          </label>
+          <input
+            // ref={myRef}
+            onChange={(e) => setText(e.target.value)}
+            type="email"
+            className="form-control"
+            id="exampleFormControlInput1"
+            placeholder="name@example.com"
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleFormControlTextarea1" className="form-label">
+            Example textarea
+          </label>
+          <textarea
+            // onClick={focusFirstTI}
+            value={myRef.current}
+            onClick={() => myRef.current++}
+            className="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+          ></textarea>
+        </div>
+      </form>
+    </Container>
   );
 };
 
