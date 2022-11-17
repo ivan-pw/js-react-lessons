@@ -1,4 +1,4 @@
-import { Component, useState, useEffect, useCallback } from 'react';
+import { Component, useState, useEffect, useCallback, useMemo } from 'react';
 import { Container } from 'react-bootstrap';
 
 import './App.css';
@@ -76,6 +76,11 @@ import './App.css';
 //   return Math.random() * (50 - 1) + 1;
 // };
 
+const countTotal = (num) => {
+  console.log('Counting...');
+  return num + 10;
+};
+
 const Slider = (props) => {
   const [slide, setSlide] = useState(0); // можно передать функцию, но без вызова!
   //   const [slide, setSlide] = useState(() => calcValue()); // можно передать функцию, но без вызова!
@@ -138,6 +143,22 @@ const Slider = (props) => {
     setAutoplay((autoplay) => !autoplay);
   }
 
+  const total = useMemo(() => {
+    // нельзя подписки и запросы, тк стреляет в рендере
+    return countTotal(slide);
+  }, [slide]);
+
+  const style = useMemo(() => {
+    // объекты - ссылки, не ==
+    return {
+      color: slide > 4 ? 'red' : 'black',
+    };
+  }, [slide]);
+
+  useEffect(() => {
+    console.log('Styles fires');
+  }, [style]);
+
   return (
     <Container>
       <div className="slider w-50 m-auto">
@@ -150,6 +171,9 @@ const Slider = (props) => {
         <Slides getSomeImg={getSomeImg}></Slides>
         <div className="text-center mt-5">
           Active slide {slide} <br /> {autoplay ? 'auto' : null}
+        </div>
+        <div className="text-center mt-5" style={style}>
+          Total slides: {total}
         </div>
         <div className="buttons mt-3">
           <button
