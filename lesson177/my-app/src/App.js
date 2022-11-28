@@ -1,6 +1,11 @@
-import { useState, memo, PureComponent, Component, useCallback } from 'react';
-import { Container } from 'react-bootstrap';
+import { useState, useCallback } from 'react';
+
+import Form from './Form';
+import dataContext from './context';
+
 import './App.css';
+
+const { Provider } = dataContext;
 
 // class Form extends Component {
 //   // встроен в PureComponent
@@ -58,66 +63,69 @@ import './App.css';
 //   );
 // }
 
-// пресекает повторный рендер при одинаковых пропсах
-const Form = memo((props) => {
-  // сравнивает поверхностно
-  console.log('Render');
+// class InputComponent extends Component {
+//   render() {
+//     return (
+//       // <Consumer>
+//       //   {(value) => {
+//       //     return (
+//       //       <input
+//       //         value={value.mail}
+//       //         type="email"
+//       //         className="form-control"
+//       //         id="exampleFormControlInput1"
+//       //         placeholder="name@example.com"
+//       //       />
+//       //     );
+//       //   }}
+//       // </Consumer>
+//       <input
+//         value={this.context.mail}
+//         type="email"
+//         className="form-control"
+//         id="exampleFormControlInput1"
+//         placeholder="name@example.com"
+//       />
+//     );
+//   }
+// }
 
-  return (
-    <Container>
-      <form className="w-50 border mt-5 p-3 m-auto">
-        <div className="mb-3">
-          <label htmlFor="exampleFormControlInput1" className="form-label mt-3">
-            Email address
-          </label>
-          <input
-            value={props.mail}
-            type="email"
-            className="form-control"
-            id="exampleFormControlInput1"
-            placeholder="name@example.com"
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="exampleFormControlTextarea1" className="form-label">
-            Example textarea
-          </label>
-          <textarea
-            value={props.text}
-            className="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-          ></textarea>
-        </div>
-      </form>
-    </Container>
-  );
-});
+// InputComponent.contextType = dataContext;
+
+// console.dir(dataContext);
 
 function App() {
   const [data, setData] = useState({
     mail: 'name@example.com',
     // mail: { name: 'name@example.com' },
     text: 'some text',
+    forceChangeMail: forceChangeMail,
   });
+
+  function forceChangeMail() {
+    setData({ ...data, mail: 'third@gmail.com' });
+  }
 
   const onLog = useCallback(() => console.log('log'), []);
 
   return (
-    <>
+    <Provider value={data}>
+      {/*  вот так value={{ smth: smth }} */}
       <Form mail={data.mail} text={data.text} onLog={onLog} />
+      {/* <Form mail={data.mail} text={data.text} onLog={onLog} /> */}
       <button
         onClick={() =>
           setData({
-            mail: 'name@example.com',
+            ...data,
+            mail: 'second@example.com',
             // mail: { name: 'name@example.com' },
-            text: 'some text',
+            text: 'some text 2',
           })
         }
       >
         Click me
       </button>
-    </>
+    </Provider>
   );
 }
 
