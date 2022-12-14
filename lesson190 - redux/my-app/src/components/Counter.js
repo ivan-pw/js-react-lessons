@@ -1,18 +1,77 @@
-const Counter = ({ counter, inc, dec, rnd }) => {
-  return (
-    <div>
-      <h1>{counter}</h1>
-      <button onClick={dec} className="btn btn-primary">
-        DEC
-      </button>
-      <button onClick={inc} className="btn btn-primary">
-        INC
-      </button>
-      <button onClick={rnd} className="btn btn-primary">
-        RND
-      </button>
-    </div>
-  );
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+import { Component } from 'react';
+// import { bindActionCreators } from 'redux';
+
+class Counter extends Component {
+  render() {
+    const { counter, inc, dec, rnd, smth } = this.props;
+
+    return (
+      <div>
+        <h1>
+          {counter} {smth}
+        </h1>
+        <button onClick={dec} className="btn btn-primary">
+          DEC
+        </button>
+        <button onClick={inc} className="btn btn-primary">
+          INC
+        </button>
+        <button onClick={rnd} className="btn btn-primary">
+          RND
+        </button>
+      </div>
+    );
+  }
+}
+
+// const Counter = ({ counter, inc, dec, rnd, smth }) => {
+//   console.log(inc);
+//   console.log(dec);
+//   return (
+//     <div>
+//       <h1>
+//         {counter} {smth}
+//       </h1>
+//       <button onClick={dec} className="btn btn-primary">
+//         DEC
+//       </button>
+//       <button onClick={inc} className="btn btn-primary">
+//         INC
+//       </button>
+//       <button onClick={rnd} className="btn btn-primary">
+//         RND
+//       </button>
+//     </div>
+//   );
+// };
+
+const mapStateToProps = (state) => {
+  return {
+    counter: state.value,
+    smth: state.foo,
+  };
 };
 
-export default Counter;
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators(actions, dispatch);
+//   // const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
+//   // return {
+//   //   inc,
+//   //   dec,
+//   //   rnd,
+//   // };
+// };
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     // inc: () => dispatch({ type: 'INC' }),
+//     inc: () => dispatch(inc()),
+//     dec: () => dispatch(dec()),
+//     rnd: () => {
+//       dispatch(rnd(Math.floor(Math.random() * 10)));
+//     },
+//   };
+// };
+
+export default connect(mapStateToProps, actions)(Counter);
