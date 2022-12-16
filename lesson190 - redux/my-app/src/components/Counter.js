@@ -1,77 +1,62 @@
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import { inc, dec, rnd } from '../actions';
 import { Component } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+
 // import { bindActionCreators } from 'redux';
 
-class Counter extends Component {
-  render() {
-    const { counter, inc, dec, rnd, smth } = this.props;
+// class Counter extends Component {
+//   render() {
+//     const { counter, inc, dec, rnd, smth } = this.props;
 
-    return (
-      <div>
-        <h1>
-          {counter} {smth}
-        </h1>
-        <button onClick={dec} className="btn btn-primary">
-          DEC
-        </button>
-        <button onClick={inc} className="btn btn-primary">
-          INC
-        </button>
-        <button onClick={rnd} className="btn btn-primary">
-          RND
-        </button>
-      </div>
-    );
-  }
-}
+//     return (
+//       <div>
+//         <h1>
+//           {counter} {smth}
+//         </h1>
+//         <button onClick={dec} className="btn btn-primary">
+//           DEC
+//         </button>
+//         <button onClick={inc} className="btn btn-primary">
+//           INC
+//         </button>
+//         <button onClick={rnd} className="btn btn-primary">
+//           RND
+//         </button>
+//       </div>
+//     );
+//   }
+// }
 
-// const Counter = ({ counter, inc, dec, rnd, smth }) => {
-//   console.log(inc);
-//   console.log(dec);
-//   return (
-//     <div>
-//       <h1>
-//         {counter} {smth}
-//       </h1>
-//       <button onClick={dec} className="btn btn-primary">
-//         DEC
-//       </button>
-//       <button onClick={inc} className="btn btn-primary">
-//         INC
-//       </button>
-//       <button onClick={rnd} className="btn btn-primary">
-//         RND
-//       </button>
-//     </div>
-//   );
-// };
+const Counter = () => {
+  const counter = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
 
-const mapStateToProps = (state) => {
-  return {
-    counter: state.value,
-    smth: state.foo,
-  };
+  return (
+    <div>
+      <h1>
+        {counter}
+        {/* {smth} */}
+      </h1>
+      <button onClick={() => dispatch(dec())} className="btn btn-primary">
+        DEC
+      </button>
+      <button onClick={() => dispatch(inc())} className="btn btn-primary">
+        INC
+      </button>
+      <button onClick={() => dispatch(rnd())} className="btn btn-primary">
+        RND
+      </button>
+    </div>
+  );
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(actions, dispatch);
-//   // const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
-//   // return {
-//   //   inc,
-//   //   dec,
-//   //   rnd,
-//   // };
-// };
-// const mapDispatchToProps = (dispatch) => {
+// const mapStateToProps = (state) => {
 //   return {
-//     // inc: () => dispatch({ type: 'INC' }),
-//     inc: () => dispatch(inc()),
-//     dec: () => dispatch(dec()),
-//     rnd: () => {
-//       dispatch(rnd(Math.floor(Math.random() * 10)));
-//     },
+//     counter: state.value,
+//     smth: state.foo,
 //   };
 // };
 
-export default connect(mapStateToProps, actions)(Counter);
+export default Counter;
